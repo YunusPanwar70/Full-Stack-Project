@@ -17,10 +17,11 @@ const common_1 = require("@nestjs/common");
 const user_entity_1 = require("./entities/user.entity");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
+const auth_service_1 = require("../auth/auth.service");
 let UsersService = class UsersService {
-    userRepository;
-    constructor(userRepository) {
+    constructor(userRepository, authService) {
         this.userRepository = userRepository;
+        this.authService = authService;
     }
     async findByUsername(username) {
         return await this.userRepository.findOne({ where: { username: username.toLowerCase() } });
@@ -42,11 +43,7 @@ let UsersService = class UsersService {
     }
     async create(createUserDto) {
         await this.checkForExistingUser(createUserDto.username, createUserDto.email);
-        const user = this.userRepository.create({
-            ...createUserDto,
-            username: createUserDto.username.toLocaleLowerCase(),
-            email: createUserDto.email.toLocaleLowerCase()
-        });
+        const user = this.userRepository.create(Object.assign(Object.assign({}, createUserDto), { username: createUserDto.username.toLocaleLowerCase(), email: createUserDto.email.toLocaleLowerCase() }));
         return await this.userRepository.save(user);
     }
     async findAll() {
@@ -66,6 +63,8 @@ exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __param(1, (0, common_1.Inject)((0, common_1.forwardRef)(() => auth_service_1.AuthService))),
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        auth_service_1.AuthService])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map
