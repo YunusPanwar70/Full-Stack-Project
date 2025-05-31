@@ -1,25 +1,23 @@
-# Root-level .gitignore
-
-# Backend
+# Backend ignores
 /backend/node_modules/
 /backend/.env
 /backend/package-lock.json
 
-# Frontend
+# Frontend ignores
 /frontend/node_modules/
 /frontend/build/
 /frontend/.env
 /frontend/package-lock.json
 
-# Common
-*.log
-*.env
+# System & common
 .env
-*.env.*  
-*.DS_Store
+*.env
+*.log
+*.log.*
+.DS_Store
 Thumbs.db
 .vscode/
 .idea/
-coverage/
 *.swp
 *.swo
+coverage/
