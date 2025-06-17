@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const userSchema = await new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     name: {
         type: String,
         require: true,
@@ -22,6 +22,10 @@ const userSchema = await new mongoose.Schema({
     address: {
         type: String,
         require: true,
+    },
+    answear: {
+        type: String,
+        require: true
     },
     role: {
         type: String,

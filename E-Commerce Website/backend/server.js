@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import connectDB from './src/config/db.js';
 import authRoutes from './src/routes/auth.route.js';
+import cors from 'cors';
 // configure env 
 dotenv.config();
 
@@ -13,6 +14,7 @@ connectDB();
 const app = express();
 
 // middleware
+app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 
@@ -25,7 +27,7 @@ app.get('/api', (req, res) => {
 });
 
 // PORT
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8080;
 
 // run listen
 app.listen(PORT, () => {
