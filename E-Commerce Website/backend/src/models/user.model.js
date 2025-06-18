@@ -28,9 +28,9 @@ const userSchema = new mongoose.Schema({
         require: true
     },
     role: {
-        type: String,
+        type: Number,
         default: 0
     },
 }, { timestamps: true });
 
-export default mongoose.model('Users', userSchema);
+export default mongoose.model('users', userSchema);

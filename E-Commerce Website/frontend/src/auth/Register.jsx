@@ -14,7 +14,7 @@ function Register() {
     const [answer, setAnswer] = useState('');
     const navigate = useNavigate();
 
-    // from fucntion
+    // form fucntion
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -36,8 +36,8 @@ function Register() {
     return (
         <Layout title="Register - Ecommerce">
             <div className="form-container">
-                <h1>Register Form</h1>
                 <form onSubmit={handleSubmit}>
+                <h4>Register Form</h4>
                     <div className="mb-3">
                         <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="form-control" id="exampleInputEmail1" placeholder='Enter Your Name' required />
                     </div>

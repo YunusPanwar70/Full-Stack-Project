@@ -10,6 +10,7 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [auth, setAuth] = useAuth();
+
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -31,16 +32,15 @@ function Login() {
                 toast.error(res.data.message);
             }
         } catch (error) {
-            console.log(error);
             toast.error('Something went wrong');
         }
     };
 
     return (
-        <Layout>
+        <Layout title='Register - Ecommerce'>
             <div className="form-container">
-                <h1>Login Form</h1>
                 <form onSubmit={handleSubmit}>
+                    <h4>Login Form</h4>
                     <div className="mb-3">
                         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" id="exampleInputEmail1" placeholder='Enter Your Email' required />
                     </div>

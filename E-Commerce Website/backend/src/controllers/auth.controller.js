@@ -1,12 +1,12 @@
 import userModel from '../models/user.model.js';
 import { comparePassword, hashPassword } from '../helpers/auth.helper.js';
 import JWT from 'jsonwebtoken';
-import { compare } from 'bcrypt';
 
 export const registerController = async (req, res) => {
     try {
         const { name, email, password, phone, address, answer } = req.body;
-        // Validation
+
+        // Validations
         if (!name) {
             return res.send({ message: 'Name is Required' });
         }
@@ -25,8 +25,10 @@ export const registerController = async (req, res) => {
         if (!answer) {
             return res.send({ message: 'Answer is Required' });
         }
+
         // check user
         const exisitingUser = await userModel.findOne({ email: email });
+
         // exisiting user
         if (exisitingUser) {
             return res.status(200).send({
@@ -48,7 +50,8 @@ export const registerController = async (req, res) => {
         console.log(error);
         res.status(500).send({
             success: false,
-            message: 'Error in Registeration'
+            message: 'Error in Registeration',
+            error
         });
     }
 };
@@ -85,13 +88,14 @@ export const loginController = async (req, res) => {
             success: true,
             message: 'login successful',
             user: {
+                _id: user._id,
                 name: user.name,
                 email: user.email,
                 phone: user.phone,
                 address: user.address,
                 role: user.role
             },
-            token
+            token,
         });
     } catch (error) {
         console.log(error);
@@ -101,10 +105,6 @@ export const loginController = async (req, res) => {
             error
         });
     }
-};
-
-export const testController = (req, res) => {
-    res.send('Protected Route');
 };
 
 // forgotPasswordController
@@ -141,7 +141,17 @@ export const forgotPasswordController = async (req, res) => {
         res.send(500).send({
             success: false,
             message: 'Something went wrong',
-            error
+            error,
         });
+    }
+};
+
+// test controller
+export const testController = (req, res) => {
+    try {
+        res.send('Protected Routes');
+    } catch (error) {
+        console.log(error);
+        res.send({ error });
     }
 };

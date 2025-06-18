@@ -3,6 +3,7 @@ import { useAuth } from '../context/auth';
 import { Outlet } from 'react-router-dom';
 import axios from 'axios';
 import Spinner from '../components/Spinner';
+
 function AdminRoute() {
     const [ok, setOk] = useState(false);
     const [auth, setAuth] = useAuth();
@@ -16,9 +17,7 @@ function AdminRoute() {
                 setOk(false);
             }
         };
-        if (auth?.token) {
-            authCheck();
-        }
+        if (auth?.token) authCheck();
     }, [auth?.token]);
     return ok ? <Outlet /> : <Spinner path='' />;
 }
